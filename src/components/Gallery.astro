@@ -1,0 +1,128 @@
+<section class="gallery" id="gallery">
+  <div class="container">
+    <header class="section__head gallery__head reveal">
+      <span class="eyebrow">Algunas piezas del taller</span>
+      <h2 class="section__title">Piezas <em>disponibles</em> ahora.</h2>
+      <p class="section__intro">
+        Estas duermen en el taller esperando casa. Si te enamoras de
+        alguna, escríbeme — la mando esa misma semana.
+      </p>
+    </header>
+
+    <div class="gallery__grid">
+      <article class="polaroid polaroid--w5 polaroid--r1 reveal">
+        <div class="polaroid__art vit-1"></div>
+        <div class="polaroid__caption">
+          <div class="polaroid__name">Jardín de medianoche</div>
+          <div class="polaroid__price">
+            70 × 52 cm <span class="dot"></span> 95 €
+          </div>
+        </div>
+      </article>
+
+      <article class="polaroid polaroid--w4 polaroid--r2 offset-down reveal" data-delay="1">
+        <div class="polaroid__art vit-2"></div>
+        <div class="polaroid__caption">
+          <div class="polaroid__name">Rosetón pequeño</div>
+          <div class="polaroid__price">
+            Ø 30 cm <span class="dot"></span> 65 €
+          </div>
+        </div>
+      </article>
+
+      <article class="polaroid polaroid--w3 polaroid--r3 reveal" data-delay="2">
+        <div class="polaroid__art vit-4"></div>
+        <div class="polaroid__caption">
+          <div class="polaroid__name">Burdeos</div>
+          <div class="polaroid__price">
+            25 × 25 cm <span class="dot"></span> 40 €
+          </div>
+        </div>
+      </article>
+
+      <article class="polaroid polaroid--w4 polaroid--r2 reveal">
+        <div class="polaroid__art vit-5"></div>
+        <div class="polaroid__caption">
+          <div class="polaroid__name">Hojas de otoño</div>
+          <div class="polaroid__price">
+            40 × 40 cm <span class="dot"></span> 70 €
+          </div>
+        </div>
+      </article>
+
+      <article class="polaroid polaroid--w4 polaroid--r1 offset-down reveal" data-delay="1">
+        <div class="polaroid__art vit-6"></div>
+        <div class="polaroid__caption">
+          <div class="polaroid__name">Ventana de cuatro</div>
+          <div class="polaroid__price">
+            45 × 45 cm <span class="dot"></span> 85 €
+          </div>
+        </div>
+      </article>
+
+      <article class="polaroid polaroid--w4 polaroid--r3 reveal" data-delay="2">
+        <div class="polaroid__art vit-3"></div>
+        <div class="polaroid__caption">
+          <div class="polaroid__name">Horizontes</div>
+          <div class="polaroid__price">
+            35 × 22 cm <span class="dot"></span> 55 €
+          </div>
+        </div>
+      </article>
+
+      <article class="polaroid polaroid--w4 polaroid--r4 offset-down-2 reveal" data-delay="3">
+        <div class="polaroid__art vit-7"></div>
+        <div class="polaroid__caption">
+          <div class="polaroid__name">Capillita</div>
+          <div class="polaroid__price">
+            22 × 38 cm <span class="dot"></span> 60 €
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .gallery { padding: var(--section-py) 0; }
+  .gallery__head .eyebrow { color: var(--color-green); }
+  .gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 2.5rem 1.75rem;
+    margin-top: 4.5rem;
+  }
+  .polaroid__art {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    position: relative;
+    overflow: hidden;
+  }
+  .polaroid__caption {
+    padding: 1.1rem 0.25rem 1.3rem;
+    text-align: center;
+  }
+  .polaroid__name {
+    font-family: var(--font-hand);
+    font-size: 1.6rem;
+    color: var(--color-ink);
+    line-height: 1.05;
+    margin-bottom: 0.35rem;
+  }
+  .polaroid__price {
+    font-family: var(--font-type);
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    color: var(--color-brown);
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .polaroid__price .dot {
+    display: inline-block;
+    width: 3px; height: 3px;
+    background: var(--color-brown);
+    border-radius: 50%;
+    transform: translateY(-3px);
+  }
+</style>

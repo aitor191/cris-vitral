@@ -1,0 +1,82 @@
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="#hero" class="nav__brand">Cris Vitral</a>
+    <nav aria-label="Principal">
+      <ul class="nav__links">
+        <li><a href="#process">El proceso</a></li>
+        <li><a href="#gallery">Las piezas</a></li>
+        <li><a href="#pricing">Precios</a></li>
+        <li><a href="#about">Sobre mí</a></li>
+      </ul>
+    </nav>
+    <a href="#contact" class="nav__cta">Escríbeme</a>
+  </div>
+</header>
+
+<style is:global>
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    background: rgba(245, 240, 232, 0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+  .nav.is-scrolled { border-bottom-color: rgba(139, 99, 64, 0.2); }
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+  .nav__brand {
+    font-family: var(--font-script);
+    font-size: 1.7rem;
+    color: var(--color-green-deep);
+    line-height: 1;
+  }
+  .nav__links {
+    display: flex;
+    gap: 2.25rem;
+    list-style: none;
+    padding: 0; margin: 0;
+  }
+  .nav__links a {
+    font-family: var(--font-type);
+    font-size: 0.78rem;
+    color: var(--color-ink);
+    letter-spacing: 0.04em;
+    position: relative;
+    padding: 0.25rem 0;
+    transition: color 0.2s ease;
+  }
+  .nav__links a::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -2px;
+    height: 1px;
+    background: var(--color-green);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  .nav__links a:hover { color: var(--color-green); }
+  .nav__links a:hover::after { transform: scaleX(1); }
+  .nav__cta {
+    font-family: var(--font-type);
+    font-size: 0.78rem;
+    color: var(--color-kraft);
+    background: var(--color-green);
+    padding: 0.65rem 1.2rem;
+    transition: background 0.2s ease;
+  }
+  .nav__cta:hover { background: var(--color-green-deep); }
+  @media (max-width: 768px) {
+    .nav__links { display: none; }
+  }
+</style>

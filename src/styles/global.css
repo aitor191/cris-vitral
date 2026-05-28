@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+  --color-kraft: #F5F0E8;
+  --color-kraft-alt: #EDE5D0;
+  --color-kraft-deep: #DDD0B0;
+  --color-paper: #FBF8F1;
+  --color-ink: #3A2E1A;
+  --color-ink-soft: #6B5A40;
+  --color-muted: #95876A;
+  --color-green: #3B6E1F;
+  --color-green-deep: #2A4F15;
+  --color-green-soft: #5C8A3F;
+  --color-brown: #8B6340;
+  --color-brown-deep: #5E4327;
+  --color-amber: #C8923A;
+  --color-blue: #2B4A7A;
+  --color-burgundy: #7A2E3B;
+  --color-whatsapp: #25D366;
+  --color-whatsapp-deep: #128C7E;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Lato', system-ui, sans-serif;
+  --font-type: 'Special Elite', 'Courier New', monospace;
+  --font-hand: 'Caveat', cursive;
+  --font-script: 'Petit Formal Script', cursive;
+}
