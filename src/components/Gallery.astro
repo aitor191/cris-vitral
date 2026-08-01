@@ -1,3 +1,29 @@
+---
+const piezas = [
+  { nombre: "Abeja",       imgs: ["abeja.webp"],                                         dims: "15 × 15 cm", precio: "25€" },
+  { nombre: "Ballena",     imgs: ["ballena1.webp", "ballena2.webp"],                     dims: "40 × 25 cm", precio: "55€" },
+  { nombre: "Book Holder", imgs: ["bookholder1.webp", "bookholder2.webp"],               dims: "20 × 30 cm", precio: "45€" },
+  { nombre: "Flor",        imgs: ["flor1.webp"],                                         dims: "20 × 20 cm", precio: "30€" },
+  { nombre: "Mariposa",    imgs: ["mariposa1.webp", "mariposa2.webp", "mariposa3.webp"], dims: "25 × 20 cm", precio: "40€" },
+  { nombre: "Mariquita",   imgs: ["mariquita.webp"],                                     dims: "12 × 12 cm", precio: "25€" },
+  { nombre: "Rosa",        imgs: ["rosa1.webp", "rosa2.webp"],                           dims: "30 × 30 cm", precio: "50€" },
+  { nombre: "Sol",         imgs: ["sol.webp"],                                           dims: "25 × 25 cm", precio: "35€" },
+];
+
+const layouts = [
+  { w: "w5", r: "r1", offset: "" },
+  { w: "w4", r: "r2", offset: "offset-down" },
+  { w: "w3", r: "r3", offset: "" },
+  { w: "w4", r: "r2", offset: "" },
+  { w: "w4", r: "r1", offset: "offset-down" },
+  { w: "w4", r: "r3", offset: "" },
+  { w: "w4", r: "r4", offset: "offset-down-2" },
+  { w: "w4", r: "r1", offset: "" },
+];
+
+const delays = ["", "1", "2", "", "1", "2", "3", ""];
+---
+
 <section class="gallery" id="gallery">
   <div class="container">
     <header class="section__head gallery__head reveal">
@@ -10,78 +36,156 @@
     </header>
 
     <div class="gallery__grid">
-      <article class="polaroid polaroid--w5 polaroid--r1 reveal">
-        <div class="polaroid__art vit-1"></div>
-        <div class="polaroid__caption">
-          <div class="polaroid__name">Jardín de medianoche</div>
-          <div class="polaroid__price">
-            70 × 52 cm <span class="dot"></span> 95 €
-          </div>
-        </div>
-      </article>
+      {piezas.map((pieza, i) => {
+        const layout = layouts[i];
+        const multi = pieza.imgs.length > 1;
+        const delay = delays[i];
+        const classes = [
+          "polaroid",
+          `polaroid--${layout.w}`,
+          `polaroid--${layout.r}`,
+          layout.offset,
+          "reveal",
+        ].filter(Boolean).join(" ");
 
-      <article class="polaroid polaroid--w4 polaroid--r2 offset-down reveal" data-delay="1">
-        <div class="polaroid__art vit-2"></div>
-        <div class="polaroid__caption">
-          <div class="polaroid__name">Rosetón pequeño</div>
-          <div class="polaroid__price">
-            Ø 30 cm <span class="dot"></span> 65 €
-          </div>
-        </div>
-      </article>
+        return (
+          <article
+            class={classes}
+            data-delay={delay || undefined}
+            data-pieza={i}
+          >
+            <div class="polaroid__art">
+              <img
+                class="gallery-img-trigger polaroid__img"
+                src={`/gallery/${pieza.imgs[0]}`}
+                alt={pieza.nombre}
+                data-imgs={JSON.stringify(pieza.imgs)}
+                data-index="0"
+                data-nombre={pieza.nombre}
+                data-pieza={i}
+                width="600"
+                height="600"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
 
-      <article class="polaroid polaroid--w3 polaroid--r3 reveal" data-delay="2">
-        <div class="polaroid__art vit-4"></div>
-        <div class="polaroid__caption">
-          <div class="polaroid__name">Burdeos</div>
-          <div class="polaroid__price">
-            25 × 25 cm <span class="dot"></span> 40 €
-          </div>
-        </div>
-      </article>
+            {multi && (
+              <div class="polaroid__dots" aria-hidden="true">
+                {pieza.imgs.map((_, dotIndex) => (
+                  <span
+                    class:list={["polaroid__dot", { "is-active": dotIndex === 0 }]}
+                  />
+                ))}
+              </div>
+            )}
 
-      <article class="polaroid polaroid--w4 polaroid--r2 reveal">
-        <div class="polaroid__art vit-5"></div>
-        <div class="polaroid__caption">
-          <div class="polaroid__name">Hojas de otoño</div>
-          <div class="polaroid__price">
-            40 × 40 cm <span class="dot"></span> 70 €
-          </div>
-        </div>
-      </article>
-
-      <article class="polaroid polaroid--w4 polaroid--r1 offset-down reveal" data-delay="1">
-        <div class="polaroid__art vit-6"></div>
-        <div class="polaroid__caption">
-          <div class="polaroid__name">Ventana de cuatro</div>
-          <div class="polaroid__price">
-            45 × 45 cm <span class="dot"></span> 85 €
-          </div>
-        </div>
-      </article>
-
-      <article class="polaroid polaroid--w4 polaroid--r3 reveal" data-delay="2">
-        <div class="polaroid__art vit-3"></div>
-        <div class="polaroid__caption">
-          <div class="polaroid__name">Horizontes</div>
-          <div class="polaroid__price">
-            35 × 22 cm <span class="dot"></span> 55 €
-          </div>
-        </div>
-      </article>
-
-      <article class="polaroid polaroid--w4 polaroid--r4 offset-down-2 reveal" data-delay="3">
-        <div class="polaroid__art vit-7"></div>
-        <div class="polaroid__caption">
-          <div class="polaroid__name">Capillita</div>
-          <div class="polaroid__price">
-            22 × 38 cm <span class="dot"></span> 60 €
-          </div>
-        </div>
-      </article>
+            <div class="polaroid__caption">
+              <div class="polaroid__name">{pieza.nombre}</div>
+              <div class="polaroid__price">
+                {pieza.dims} <span class="dot"></span> {pieza.precio}
+              </div>
+            </div>
+          </article>
+        );
+      })}
     </div>
   </div>
 </section>
+
+<div id="lightbox" aria-modal="true" role="dialog" aria-label="Visor de imagen">
+  <button id="lb-close" aria-label="Cerrar">✕</button>
+  <button id="lb-prev" aria-label="Anterior">←</button>
+  <button id="lb-next" aria-label="Siguiente">→</button>
+  <div id="lb-img-wrap">
+    <img id="lb-img" src="" alt="" />
+  </div>
+  <div id="lb-caption">
+    <span id="lb-nombre"></span>
+    <span id="lb-counter"></span>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const lb = document.getElementById("lightbox");
+    const lbImg = document.getElementById("lb-img") as HTMLImageElement | null;
+    const lbNombre = document.getElementById("lb-nombre");
+    const lbCounter = document.getElementById("lb-counter");
+    const lbPrev = document.getElementById("lb-prev");
+    const lbNext = document.getElementById("lb-next");
+    const lbClose = document.getElementById("lb-close");
+
+    if (!lb || !lbImg || !lbNombre || !lbCounter || !lbPrev || !lbNext || !lbClose) return;
+
+    let currentImgs: string[] = [];
+    let currentIndex = 0;
+    let currentNombre = "";
+
+    function openLightbox(imgs: string[], index: number, nombre: string) {
+      currentImgs = imgs;
+      currentIndex = index;
+      currentNombre = nombre;
+      lb!.classList.toggle("single", imgs.length === 1);
+      lb!.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+      showImg(index);
+    }
+
+    function closeLightbox() {
+      lb!.classList.remove("is-open");
+      document.body.style.overflow = "";
+    }
+
+    function showImg(index: number) {
+      lbImg!.classList.add("is-fading");
+      setTimeout(() => {
+        lbImg!.src = "/gallery/" + currentImgs[index];
+        lbImg!.alt = currentNombre;
+        lbNombre!.textContent = currentNombre;
+        lbCounter!.textContent =
+          currentImgs.length > 1 ? `${index + 1} / ${currentImgs.length}` : "";
+        lbImg!.classList.remove("is-fading");
+      }, 200);
+    }
+
+    function prev() {
+      if (currentImgs.length <= 1) return;
+      currentIndex = (currentIndex - 1 + currentImgs.length) % currentImgs.length;
+      showImg(currentIndex);
+    }
+
+    function next() {
+      if (currentImgs.length <= 1) return;
+      currentIndex = (currentIndex + 1) % currentImgs.length;
+      showImg(currentIndex);
+    }
+
+    document.querySelectorAll<HTMLElement>(".gallery-img-trigger").forEach((el) => {
+      el.addEventListener("click", () => {
+        const imgs = JSON.parse(el.dataset.imgs || "[]");
+        const index = parseInt(el.dataset.index || "0", 10);
+        const nombre = el.dataset.nombre || "";
+        openLightbox(imgs, index, nombre);
+      });
+    });
+
+    lbClose.addEventListener("click", closeLightbox);
+    lbPrev.addEventListener("click", prev);
+    lbNext.addEventListener("click", next);
+
+    document.addEventListener("keydown", (e) => {
+      if (!lb!.classList.contains("is-open")) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
+    });
+
+    lb.addEventListener("click", (e) => {
+      if (e.target === lb) closeLightbox();
+    });
+  })();
+</script>
 
 <style is:global>
   .gallery { padding: var(--section-py) 0; }
@@ -92,12 +196,45 @@
     gap: 2.5rem 1.75rem;
     margin-top: 4.5rem;
   }
+
   .polaroid__art {
     width: 100%;
     aspect-ratio: 1 / 1;
     position: relative;
     overflow: hidden;
+    background: var(--color-kraft-deep);
   }
+
+  .polaroid__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .gallery-img-trigger {
+    cursor: pointer;
+  }
+
+  .polaroid__dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.75rem 0 0.15rem;
+    pointer-events: none;
+  }
+  .polaroid__dot {
+    width: 7px;
+    height: 7px;
+    border: 1px solid var(--color-brown);
+    border-radius: 50%;
+    background: transparent;
+  }
+  .polaroid__dot.is-active {
+    background: var(--color-brown);
+  }
+
   .polaroid__caption {
     padding: 1.1rem 0.25rem 1.3rem;
     text-align: center;
@@ -124,5 +261,91 @@
     background: var(--color-brown);
     border-radius: 50%;
     transform: translateY(-3px);
+  }
+
+  /* Lightbox */
+  #lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(20, 14, 6, 0.94);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  #lightbox.is-open {
+    display: flex;
+  }
+  #lb-img-wrap {
+    max-width: 90vw;
+    max-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #lb-img {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 4px;
+    transition: opacity 200ms ease;
+  }
+  #lb-img.is-fading {
+    opacity: 0;
+  }
+  #lb-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.5rem;
+    font-size: 1.5rem;
+    color: var(--color-kraft);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0.5rem;
+    opacity: 0.8;
+    transition: opacity 150ms;
+  }
+  #lb-close:hover { opacity: 1; }
+  #lb-prev,
+  #lb-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(251, 248, 241, 0.12);
+    border: 1px solid rgba(251, 248, 241, 0.25);
+    color: var(--color-kraft);
+    font-size: 1.5rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 150ms;
+  }
+  #lb-prev:hover,
+  #lb-next:hover { background: rgba(251, 248, 241, 0.25); }
+  #lb-prev { left: 1.5rem; }
+  #lb-next { right: 1.5rem; }
+  #lightbox.single #lb-prev,
+  #lightbox.single #lb-next { display: none; }
+  #lb-caption {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    color: var(--color-kraft);
+    opacity: 0.75;
+    font-family: var(--font-hand);
+    font-size: 1rem;
+  }
+  #lb-counter {
+    font-family: var(--font-type);
+    font-size: 0.8rem;
+    opacity: 0.6;
   }
 </style>
